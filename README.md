@@ -97,6 +97,9 @@ The Docker setup includes health checks and proper service dependencies.
 ### Live URL
 **Placeholder**: `https://kjhwr.vercel.app` — replace after deployment
 
+### Repository
+**GitHub**: `https://github.com/himanshsharmaa/kjhwr`
+
 ### Deployment Steps
 1. Push this repository to GitHub
 2. Import the repository in Vercel
