@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 0;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-xl shadow-lg;
+  }
+  .kpi-card {
+    @apply glass-panel p-5 hover:border-slate-500/50 transition-colors;
+  }
+  .btn-primary {
+    @apply bg-uk-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors border border-slate-600;
+  }
+  .btn-secondary {
+    @apply bg-slate-800 hover:bg-slate-700 text-slate-100 px-4 py-2 rounded-lg font-medium transition-colors border border-slate-600;
+  }
+  .btn-active {
+    @apply bg-uk-blue/20 border-uk-blue/50 text-blue-400;
+  }
+  .tab-btn {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-colors border-b-2 border-transparent;
+  }
+  .tab-btn-active {
+    @apply border-blue-500 text-blue-400 bg-blue-500/10;
+  }
+  .tab-btn-inactive {
+    @apply text-slate-400 hover:text-slate-200 hover:border-slate-500/50;
+  }
+  .tooltip-badge {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs text-slate-300;
+  }
+}
