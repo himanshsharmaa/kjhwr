@@ -46,6 +46,7 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
+    const [activeTab, setActiveTab] = useState("procurement");
     // Controls
     const [startDate, setStartDate] = useState("2026-01-01");
     const [endDate, setEndDate] = useState("2026-01-31");

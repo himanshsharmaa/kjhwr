@@ -6,6 +6,7 @@
   :root {
     --background: 0 0% 4%;
     --foreground: 0 0% 98%;
+    --uk-blue: 59 130 246;
   }
 
   body {
@@ -22,13 +23,13 @@
     @apply glass-panel p-5 hover:border-slate-500/50 transition-colors;
   }
   .btn-primary {
-    @apply bg-uk-blue hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors border border-slate-600;
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors border border-blue-500/50;
   }
   .btn-secondary {
     @apply bg-slate-800 hover:bg-slate-700 text-slate-100 px-4 py-2 rounded-lg font-medium transition-colors border border-slate-600;
   }
   .btn-active {
-    @apply bg-uk-blue/20 border-uk-blue/50 text-blue-400;
+    @apply bg-blue-600/20 border-blue-500/50 text-blue-400;
   }
   .tab-btn {
     @apply px-4 py-2 rounded-lg text-sm font-medium transition-colors border-b-2 border-transparent;
@@ -41,5 +42,23 @@
   }
   .tooltip-badge {
     @apply inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs text-slate-300;
+  }
+  .section-header {
+    @apply flex items-center justify-between mb-4;
+  }
+  .section-title {
+    @apply text-lg font-semibold text-white flex items-center gap-2;
+  }
+  .section-subtitle {
+    @apply text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded;
+  }
+  .chart-container {
+    @apply h-[400px] w-full;
+  }
+  .empty-state {
+    @apply flex h-full items-center justify-center text-slate-400;
+  }
+  .loading-state {
+    @apply flex h-full items-center justify-center text-slate-400;
   }
 }

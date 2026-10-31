@@ -133,7 +133,9 @@ const KPICard = ({
   <div className="kpi-card">
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
-        <Icon className={`w-5 h-5 ${color}`} />
+        <div className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center ${color.replace("text-", "bg-")}/20`}>
+          <Icon className={`w-5 h-5 ${color}`} />
+        </div>
         <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">{title}</span>
       </div>
       {tooltip && (
@@ -143,7 +145,7 @@ const KPICard = ({
         </div>
       )}
     </div>
-    <div className="text-2xl font-bold text-slate-100 mb-1">{value}</div>
+    <div className="text-3xl font-bold text-slate-100 mb-1">{value}</div>
     {subtitle && <div className="text-xs text-slate-500 mb-3">{subtitle}</div>}
     {trend && (
       <div className={`text-xs font-medium ${trend.positive ? "text-emerald-400" : "text-rose-400"}`}>
@@ -291,10 +293,14 @@ const App = () => {
       <header className="glass-panel p-6 mb-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-3">
-              <Wind className="w-6 h-6 text-blue-400" />
-              UK National Wind Day-Ahead Procurement & Forecast Intelligence
-            </h1>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+                <Wind className="w-6 h-6 text-blue-400" />
+              </div>
+              <h1 className="text-2xl font-bold text-white tracking-tight">
+                UK National Wind Day-Ahead Procurement & Forecast Intelligence
+              </h1>
+            </div>
             <p className="text-slate-400 text-sm mt-1">
               Elexon BMRS • FUELHH 30-min Actuals & WINDFOR Point-in-Time Forecasts • January 2026 Scope
             </p>
@@ -319,7 +325,7 @@ const App = () => {
       )}
 
       {/* Interactive Control Bar */}
-      <div className="glass-panel p-5 mb-6">
+      <div className="glass-panel p-6 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
           <div className="col-span-1 md:col-span-2">
             <label className="block text-xs text-slate-400 uppercase font-medium mb-2">Date Range</label>
@@ -456,7 +462,7 @@ const App = () => {
             <button
               onClick={fetchData}
               disabled={loading}
-              className="w-full py-3 rounded bg-uk-blue hover:bg-blue-700 text-white font-semibold flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+              className="w-full py-3 rounded bg-blue-600 hover:bg-blue-700 text-white font-semibold flex items-center justify-center gap-2 transition-colors disabled:opacity-50 border border-blue-500/50"
             >
               <RefreshCw className="w-4 h-4 animate-[spin_1s_linear_infinite]" /> Apply
             </button>
@@ -480,7 +486,7 @@ const App = () => {
             activeTab === "analytics" ? "tab-btn-active" : "tab-btn-inactive"
           }`}
         >
-                  <BarChart2 className="w-4 h-4 mr-2" /> Forecast Error Analysis
+          <BarChart2 className="w-4 h-4 mr-2" /> Forecast Error Analysis
         </button>
       </div>
 
@@ -544,9 +550,12 @@ const App = () => {
           </div>
 
           {/* Main Chart */}
-          <div className="glass-panel p-5 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Actual Wind vs Point-in-Time Forecast</h2>
+          <div className="glass-panel p-6 mb-6">
+            <div className="section-header">
+              <h2 className="section-title">
+                <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                Actual Wind vs Point-in-Time Forecast
+              </h2>
               <div className="flex gap-2 text-xs">
                 <span className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full bg-emerald-400" /> Actual Wind (MW)
@@ -559,11 +568,11 @@ const App = () => {
                 </span>
               </div>
             </div>
-            <div className="h-[400px] w-full">
+            <div className="chart-container">
               {loading ? (
-                <div className="flex h-full items-center justify-center text-slate-400">Loading data…</div>
+                <div className="loading-state">Loading data…</div>
               ) : !data ? (
-                <div className="flex h-full items-center justify-center text-slate-400">Click Apply to load data</div>
+                <div className="empty-state">Click Apply to load data</div>
               ) : (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
@@ -590,12 +599,13 @@ const App = () => {
           </div>
 
           {/* Thermal Procurement Calculator */}
-          <div className="glass-panel p-5 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Factory className="w-5 h-5 text-blue-400" /> Day-Ahead Thermal Procurement Calculator
+          <div className="glass-panel p-6 mb-6">
+            <div className="section-header">
+              <h2 className="section-title">
+                <Factory className="w-5 h-5 text-blue-400" />
+                Day-Ahead Thermal Procurement Calculator
               </h2>
-              <span className="text-xs text-slate-400 bg-slate-800 px-2 py-1 rounded">Risk-adjusted wind baseline</span>
+              <span className="section-subtitle">Risk-adjusted wind baseline</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="col-span-1 md:col-span-1">
@@ -674,9 +684,14 @@ const App = () => {
         <>
           {/* Lead-Time Degradation Chart */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div className="glass-panel p-5">
-              <h2 className="text-lg font-semibold text-white mb-4">Lead-Time Degradation</h2>
-              <div className="h-[320px] w-full">
+            <div className="glass-panel p-6">
+              <div className="section-header">
+                <h2 className="section-title">
+                  <BarChart2 className="w-5 h-5 text-blue-400" />
+                  Lead-Time Degradation
+                </h2>
+              </div>
+              <div className="chart-container">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={horizonCurve}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
@@ -707,9 +722,14 @@ const App = () => {
             </div>
 
             {/* Diurnal Profile */}
-            <div className="glass-panel p-5">
-              <h2 className="text-lg font-semibold text-white mb-4">Diurnal Error Profile (UTC Hour)</h2>
-              <div className="h-[320px] w-full">
+            <div className="glass-panel p-6">
+              <div className="section-header">
+                <h2 className="section-title">
+                  <Activity className="w-5 h-5 text-blue-400" />
+                  Diurnal Error Profile (UTC Hour)
+                </h2>
+              </div>
+              <div className="chart-container">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={diurnal}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
@@ -741,9 +761,14 @@ const App = () => {
           </div>
 
           {/* Error Histogram */}
-          <div className="glass-panel p-5 mb-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Error Distribution Histogram (Forecast − Actual, MW)</h2>
-            <div className="h-[300px] w-full">
+          <div className="glass-panel p-6 mb-6">
+            <div className="section-header">
+              <h2 className="section-title">
+                <AlertCircle className="w-5 h-5 text-purple-400" />
+                Error Distribution Histogram (Forecast − Actual, MW)
+              </h2>
+            </div>
+            <div className="chart-container">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={histogram}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
@@ -751,13 +776,18 @@ const App = () => {
                   <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} />
                   <Bar dataKey="count" fill="#6366f1" radius={[4, 4, 0, 0]} />
                 </BarChart>
-                        </ResponsiveContainer>
+              </ResponsiveContainer>
             </div>
           </div>
 
           {/* Top 10 Shortfall Events Table */}
-          <div className="glass-panel p-5">
-            <h2 className="text-lg font-semibold text-white mb-4">Top 10 Critical Wind Shortfall Events</h2>
+          <div className="glass-panel p-6">
+            <div className="section-header">
+              <h2 className="section-title">
+                <TriangleAlert className="w-5 h-5 text-rose-400" />
+                Top 10 Critical Wind Shortfall Events
+              </h2>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead>
